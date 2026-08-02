@@ -9,7 +9,7 @@ START_DATE: DATE_OBJ
 END_DATE: DATE_OBJ
 CONTENT: STRING
 
-LIST[TASK]
+Array[TASK]
 
 
 Show existing task -> Add Task -> Repeat

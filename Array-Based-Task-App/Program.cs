@@ -31,17 +31,18 @@ class Program
     static void Main(string[] args)
     {
 
-        List<AppTask> taskList = new List<AppTask>();
+        int taskCount = 0;
+        AppTask[] taskList = new AppTask[100];
 
         while (true)
         {
-            if(taskList.Count > 0)
+            if(taskCount > 0)
             {
                 Console.WriteLine("All Tasks:");
                 
                 Console.WriteLine("\nTask no. | Registration Date | Description | Start Date | End Date \n");
 
-                for(int i = taskList.Count-1, j = 1; i >= 0; i--, j++)
+                for(int i = taskCount-1, j = 1; i >= 0; i--, j++)
                 {
                     Console.WriteLine($"{j}\t{taskList[i].RegisterDate}\t{taskList[i].Content}\t{taskList[i].StartDate}\t{taskList[i].EndDate}");
                 }
@@ -62,10 +63,10 @@ class Program
                 Console.Write("Enter Task: ");
                 string? content = Console.ReadLine();
 
-                Console.Write("Enter Starting Day (yyyy-MM-dd): ");
+                Console.Write("Enter Starting Day (yyyy-mm-dd): ");
                 string? startDate = Console.ReadLine();
 
-                Console.Write("Enter Ending Day (yyyy-MM-dd): ");
+                Console.Write("Enter Ending Day (yyyy-mm-dd): ");
                 string? endDate = Console.ReadLine();
 
                 if(string.IsNullOrWhiteSpace(content) || string.IsNullOrWhiteSpace(startDate) || string.IsNullOrWhiteSpace(endDate))
@@ -101,7 +102,14 @@ class Program
                     Content = content
                 };
                 
-                taskList.Add(newTask);
+                if(taskCount >= taskList.Length)
+                {
+                    Console.WriteLine(taskList.Length);
+                    Array.Resize(ref taskList, taskList.Length + 100);
+                    Console.WriteLine(taskList.Length);
+                }
+
+                taskList[taskCount++] = newTask;
 
                 Console.WriteLine("Task Added Successfuly!");
             }
